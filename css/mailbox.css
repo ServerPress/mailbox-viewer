@@ -1,0 +1,98 @@
+#mail {
+    margin-top: -1px;
+}
+.container div.hsplitter {
+    background-color: #e7e7e7;
+}
+.list, .detail {
+    height: auto;
+    width: 100%;
+}
+#btn-empty:hover {
+    background-color: #dd0000;
+    border-color: #880000;
+    color: #fff;
+}
+.detail .tabbable #text {
+    padding: 10px;
+}
+pre {
+    background-color: #fff;
+    border-style: none;
+    font-size: .9em;
+}
+.container .splitter_panel {
+    border: 1px solid #e7e7e7;
+    border-bottom: none;
+}
+body > .container {
+    padding: 0;
+}
+thead {
+    background-color: #f8f8f8;
+}
+tbody tr:hover {
+    background-color: #e7e7e7;
+}
+.table tbody tr td, .table thead tr th {
+    font-size: 13px;
+    line-height: 8px;
+}
+.table .mail-date {
+    background-image: url( 'http://localhost/ds-plugins/mailbox-viewer/img/mail.png' );
+    background-size: 21px 21px;
+    background-repeat: no-repeat;
+    background-position: 3px 2px;
+    padding-left: 28px;
+}
+td.mail-date, td.mail-to, td.mail-from  {
+    max-width: 150px;
+}
+td.mail-subject {
+    width: 80%;
+    max-width:300px;
+}
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 50px;
+}
+.tabbable, .tab-content {
+    height: 100%;
+    margin: 0px 0 -10px 0;
+}
+.nav-pills {
+    border-bottom: 2px solid #e7e7e7;
+    background-color: #e7e7e7;
+    padding-left: 1px;
+    margin-top: -22px;
+    line-height: 0px;
+    font-size: 11px;
+}
+.nav-pills li.active a, .nav-pills li.active a:focus {
+    border-radius: 0 0 8px 8px;
+    background-color: #fff;
+    color: #000;
+    outline: 0;
+}
+.nav-pills li a:hover, .nav-pills li.active a:hover {
+    background-color: #f8f8f8;
+    border-radius: 0 0 8px 8px;
+    color: #c0c0c0;
+}
+.nav-pills li a {
+    color: #c0c0c0;
+}
+th.header {
+    background-image: url(http://localhost/assets/big.gif);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 20px !important;
+}
+th.headerSortUp {
+    background-image: url(http://localhost/assets/desc.gif);
+}
+th.headerSortDown {
+    background-image: url(http://localhost/assets/asc.gif);
+}
