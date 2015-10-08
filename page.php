@@ -63,12 +63,14 @@ include_once( 'string.php' );
 						}
 						krsort( $files );
 						foreach ( $files as $date => $file ) {
+							$timestamp_pieces = explode( ' - ', $date );
+							$timestamp = $timestamp_pieces[0];
 							$md = new MailDecoder( $file, true );
 							echo '<tr class="envelope" filename="' . basename( $file ) . '">';
-							$d = date( "M d, Y g:i", $date );
-							if ( date( 'a', $date ) === 'am' ) {
+							$d = date( "M d, Y g:i", $timestamp );
+							if ( date( 'a', $timestamp ) === 'am' ) {
 								$d .= 'a';
-							}else{
+							} else{
 								$d .= 'p';
 							}
 							echo '<td class="mail-date"> ' . $d . ' </td><td class="mail-to">' . $md->to . '</td>';
