@@ -10,7 +10,7 @@ if( ! $ds_runtime->is_localhost ) {
 	return;
 }
 
-define( 'DS3_MAILBOX_VIEWER_VER', '1.0.0' );
+define( 'DS3_MAILBOX_VIEWER_VER', '1.0.1' );
 
 $ds_runtime->add_action( 'ds_head', 'mailbox_viewer_head' );
 function mailbox_viewer_head() {
@@ -38,9 +38,6 @@ if( $buffer ) {
 	$buffer = explode( "\n", $buffer );
 	$latest = str_replace( ' * Version: ', '', $buffer[5] );
 	$current = DS3_MAILBOX_VIEWER_VER;
-	
-	echo $current . '<br>';
-	echo $latest . '<br>';
 }
 ?>
 	<div class="container">
