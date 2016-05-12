@@ -16,8 +16,8 @@
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-if ( class_exists('String') ) return;
-final class String {
+if ( class_exists('GString') ) return;
+final class GString {
 
 	// holds the value of the String object
 	private $value;
@@ -25,7 +25,7 @@ final class String {
 	/*
 	* Constructor
 	*
-	* The constructor sets the value of the String.
+	* The constructor sets the value of the GString.
 	*
 	* @access  public
 	* @param   string
@@ -84,8 +84,8 @@ final class String {
 
 	public function compareTo($that) {
 
-		if (!($that instanceof String)) {
-			$that = new String($that);
+		if (!($that instanceof GString)) {
+			$that = new GString($that);
 		}
 		return strcmp($this->value, $that->value);
 
@@ -101,19 +101,19 @@ final class String {
 
 	public function compareToIgnoreCase($that) {
 
-		if (!($that instanceof String)) {
-			$that = new String($that);
+		if (!($that instanceof GString)) {
+			$that = new GString($that);
 		}
 		return strcmp($this->toLowerCase()->value, $that->toLowerCase()->value);
 
 	}
 
 	/*
-	* Concatenates the given string(s) to the end of this String.
+	* Concatenates the given string(s) to the end of this GString.
 	*
 	* @access  public
 	* @param   string
-	* @return  String
+	* @return  GString
 	*/
 
 	public function concat() {
@@ -121,17 +121,17 @@ final class String {
 		$strs = func_get_args();
 		$temp = array();
 		foreach ($strs as $str) {
-			if (!($str instanceof String)) {
-				$str = new String($str);
+			if (!($str instanceof GString)) {
+				$str = new GString($str);
 			}
 			$temp[] = $str->value;
 		}
-		return new String($this->value . implode('', $temp));
+		return new GString($this->value . implode('', $temp));
 
 	}
 
 	/*
-	* Returns TRUE if, and only if, this String contains the given sequence.
+	* Returns TRUE if, and only if, this GString contains the given sequence.
 	*
 	* @access  public
 	* @param   string
@@ -143,7 +143,7 @@ final class String {
 	}
 
 	/*
-	* Tests if this String ends with the specified suffix.
+	* Tests if this GString ends with the specified suffix.
 	*
 	* @access  public
 	* @param   string
@@ -157,7 +157,7 @@ final class String {
 	}
 
 	/*
-	* Compares this String to another String.
+	* Compares this GString to another GString.
 	*
 	* @access  public
 	* @param   string
@@ -166,8 +166,8 @@ final class String {
 
 	public function equals($that, $ignoreCase = FALSE) {
 
-		if (!($that instanceof String)) {
-			$that = new String($that);
+		if (!($that instanceof GString)) {
+			$that = new GString($that);
 		}
 
 		$a = $this;
@@ -183,7 +183,7 @@ final class String {
 	}
 
 	/*
-	* Compares this String to another String, ignoring case differences.
+	* Compares this GString to another GString, ignoring case differences.
 	*
 	* @access  public
 	* @param   string
@@ -197,10 +197,10 @@ final class String {
 	}
 
 	/*
-	* Returns a formatted String.
+	* Returns a formatted GString.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public static function format($str) {
@@ -212,12 +212,12 @@ final class String {
 			$str = preg_replace('/\%s/', $args[$i], $str, 1);
 		}
 
-		return new String($str);
+		return new GString($str);
 
 	}
 
 	/*
-	* Generates a String from given ASCII values.
+	* Generates a GString from given ASCII values.
 	*
 	* @access  public
 	* @return
@@ -226,16 +226,16 @@ final class String {
 	public static function fromCharCode() {
 
 		$args = func_get_args();
-		$str = new String();
+		$str = new GString();
 		foreach ($args as $arg) {
 			$str = $str->concat(chr($arg));
 		}
-		return new String($str->value);
+		return new GString($str->value);
 
 	}
 
 	/*
-	* Returns a hash code for this String.
+	* Returns a hash code for this GString.
 	*
 	* @access  public
 	* @return  int
@@ -252,7 +252,7 @@ final class String {
 	}
 
 	/*
-	* Returns the index within this String of the first occurrence of the
+	* Returns the index within this GString of the first occurrence of the
 	* specified substring, or -1 if the substring does not occur.
 	*
 	* @access  public
@@ -263,7 +263,6 @@ final class String {
 
 	public function indexOf($substring, $fromIndex = 0) {
 		if ($fromIndex >= $this->length() || $fromIndex < 0) {
-			trace( $substring . ' ' . $fromIndex . ' >= ' . $this->length() );
 			throw new Exception('Index out of bounds');
 		}
 
@@ -286,7 +285,7 @@ final class String {
 	}
 
 	/*
-	* Returns the index within this String of the last occurrence of the
+	* Returns the index within this GString of the last occurrence of the
 	* specified substring, or -1 if the substring does not occur.
 	*
 	* @access  public
@@ -307,7 +306,7 @@ final class String {
 	}
 
 	/*
-	* Returns the length of this String.
+	* Returns the length of this GString.
 	*
 	* @access  public
 	* @return  int
@@ -320,7 +319,7 @@ final class String {
 	}
 
 	/*
-	* Tells whether or not this String matches the given pattern.
+	* Tells whether or not this GString matches the given pattern.
 	*
 	* @access  public
 	* @param   string
@@ -344,16 +343,16 @@ final class String {
 
 		$quote = $single === FALSE ? '"' : "'";
 
-		return new String($quote . $this->value . $quote);
+		return new GString($quote . $this->value . $quote);
 
 	}
 
 	/*
-	* Test if two String regions are equal.
+	* Test if two GString regions are equal.
 	*
 	* @access  public
 	* @param   int
-	* @param   String
+	* @param   GString
 	* @param   int
 	* @param   int
 	* @param   boolean
@@ -362,8 +361,8 @@ final class String {
 
 	public function regionMatches($offsetA, $that, $offsetB, $length, $ignoreCase = FALSE) {
 
-		if (!($that instanceof String)) {
-			$that = new String($that);
+		if (!($that instanceof GString)) {
+			$that = new GString($that);
 		}
 
 		$a = $this->substring($offsetA, $length);
@@ -379,11 +378,11 @@ final class String {
 	}
 
 	/*
-	* Test if two String regions are equal, ignoring case.
+	* Test if two GString regions are equal, ignoring case.
 	*
 	* @access  public
 	* @param   int
-	* @param   String
+	* @param   GString
 	* @param   int
 	* @param   int
 	* @return  boolean
@@ -396,14 +395,14 @@ final class String {
 	}
 
 	/*
-	* Returns a new String resulting from replacing all occurrences of old in
+	* Returns a new GString resulting from replacing all occurrences of old in
 	* this string with new.
 	*
 	* @access  public
 	* @param   mixed
 	* @param   mixed
 	* @param   int
-	* @return  String
+	* @return  GString
 	*/
 
 	public function replace($old, $new, $count = NULL) {
@@ -413,41 +412,41 @@ final class String {
 		} else {
 			$temp = str_replace($old, $new, $this->value);
 		}
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
 	/*
-	* Replaces each substring of this String that matches the given pattern
+	* Replaces each substring of this GString that matches the given pattern
 	* with the given replacement.
 	*
 	* @access  public
 	* @param   string
 	* @param   string
-	* @return  String
+	* @return  GString
 	*/
 
 	public function replaceAll($pattern, $replacement) {
 
 		$temp = preg_replace($pattern, $replacement, $this->value);
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
 	/*
-	* Replaces the first substring of this String that matches the given
+	* Replaces the first substring of this GString that matches the given
 	* pattern with the given replacement.
 	*
 	* @access  public
 	* @param   string
 	* @param   string
-	* @return  String
+	* @return  GString
 	*/
 
 	public function replaceFirst($pattern, $replacement) {
 
 		$temp = preg_replace($pattern, $replacement, $this->value, 1);
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
@@ -467,7 +466,7 @@ final class String {
 	}
 
 	/*
-	* Tests if this String starts with the specified prefix.
+	* Tests if this GString starts with the specified prefix.
 	*
 	* @access  public
 	* @param   string
@@ -481,7 +480,7 @@ final class String {
 	}
 
 	/*
-	* Returns a new String that is a substring of this string.
+	* Returns a new GString that is a substring of this string.
 	*
 	* @access  public
 	* @param   int
@@ -496,12 +495,12 @@ final class String {
 		} else {
 			$temp = substr($this->value, $start);
 		}
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
 	/*
-	* Converts this String to an array of characters.
+	* Converts this GString to an array of characters.
 	*
 	* @access  public
 	* @return  array
@@ -518,28 +517,28 @@ final class String {
 	}
 
 	/*
-	* Converts all of the characters in this String to lower case.
+	* Converts all of the characters in this GString to lower case.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public function toLowerCase() {
 
-		return new String(strtolower($this->value));
+		return new GString(strtolower($this->value));
 
 	}
 
 	/*
-	* Converts all of the characters in this String to upper case.
+	* Converts all of the characters in this GString to upper case.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public function toUpperCase() {
 
-		return new String(strtoupper($this->value));
+		return new GString(strtoupper($this->value));
 
 	}
 
@@ -547,13 +546,13 @@ final class String {
 	* Removes leading and trailing whitespace.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public function trim() {
 
 		$temp = preg_replace('/^\s+/', '', preg_replace('/\s+$/', '', $this->value));
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
@@ -561,13 +560,13 @@ final class String {
 	* Removes leading whitespace.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public function ltrim() {
 
 		$temp = preg_replace('/^\s+/', '', $this->value);
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
@@ -575,18 +574,18 @@ final class String {
 	* Removes trailing whitespace.
 	*
 	* @access  public
-	* @return  String
+	* @return  GString
 	*/
 
 	public function rtrim() {
 
 		$temp = preg_replace('/\s+$/', '', $this->value);
-		return new String($temp);
+		return new GString($temp);
 
 	}
 
 	/*
-	* Returns the value of this String
+	* Returns the value of this GString
 	*
 	* @access  public
 	* @return  string
@@ -603,7 +602,7 @@ final class String {
 	* starting from right to left, including the search string itself.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function delRightMost($sSearch) {
@@ -612,12 +611,12 @@ final class String {
 			for ($i = strlen($sSource); $i >= 0; $i = $i - 1) {
 				$f = strpos($sSource, $sSearch, $i);
 				if ($f !== FALSE) {
-					return new String(substr($sSource,0, $f));
+					return new Gtring(substr($sSource,0, $f));
 					break;
 				}
 			}
 		}
-		return new String($sSource);
+		return new GString($sSource);
 	}
 
 	/*
@@ -625,7 +624,7 @@ final class String {
 	* starting from left to right, including the search string itself.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function delLeftMost($sSearch) {
@@ -634,12 +633,12 @@ final class String {
 			for ($i = 0; $i < strlen($sSource); $i = $i + 1) {
 				$f = strpos($sSource, $sSearch, $i);
 				if ($f !== FALSE) {
-					return new String(substr($sSource,$f + strlen($sSearch), strlen($sSource)));
+					return new GString(substr($sSource,$f + strlen($sSearch), strlen($sSource)));
 					break;
 				}
 			}
 		}
-		return new String($sSource);
+		return new GString($sSource);
 	}
 
 	/*
@@ -647,7 +646,7 @@ final class String {
 	* starting from right to left, excluding the search string itself.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function getRightMost($sSearch) {
@@ -656,11 +655,11 @@ final class String {
 			for ($i = strlen($sSource); $i >= 0; $i = $i - 1) {
 				$f = strpos($sSource, $sSearch, $i);
 				if ($f !== FALSE) {
-					return new String(substr($sSource,$f + strlen($sSearch), strlen($sSource)));
+					return new GString(substr($sSource,$f + strlen($sSearch), strlen($sSource)));
 				}
 			}
 		}
-		return new String($sSource);
+		return new GString($sSource);
 	}
 
 	/*
@@ -668,7 +667,7 @@ final class String {
 	* starting from left to right, excluding the search string itself.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function getLeftMost($sSearch) {
@@ -677,34 +676,34 @@ final class String {
 			for ($i = 0; $i < strlen($sSource); $i = $i + 1) {
 				$f = strpos($sSource, $sSearch, $i);
 				if ($f !== FALSE) {
-					return new String(substr($sSource,0, $f));
+					return new GString(substr($sSource,0, $f));
 					break;
 				}
 			}
 		}
-		return new String($sSource);
+		return new GString($sSource);
 	}
 
 	/*
 	* Returns left most string by the given number of characters.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function left($chars){
-		return new String(substr($this->value, 0, $chars));
+		return new GString(substr($this->value, 0, $chars));
 	}
 
 	/*
 	* Returns right most string by the given number of characters.
 	*
 	* @access public
-	* @return string
+	* @return GString
 	*/
 
 	public function right($chars){
-		return new String(substr($this->value, ($chars*-1)));
+		return new GString(substr($this->value, ($chars*-1)));
 	}
 
 }

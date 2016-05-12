@@ -6,7 +6,7 @@
  *
  * @author Stephen J Carnam
  * @package DesktopServer
- * @uses String class
+ * @uses GString class
  * @since 4.0.0
  */
 
@@ -23,7 +23,7 @@ class MailDecoder {
 	/**
 	 * Accept a filename to parse on creation.
 	 *
-	 * @param $filename String containing a complete path to the email file.
+	 * @param $filename string containing a complete path to the email file.
 	 */
 	function __construct( $filename = '', $label_only = false ) {
 		if ( $filename !== '' ) {
@@ -34,7 +34,7 @@ class MailDecoder {
 	/**
 	 * Parse the given email file.
 	 *
-	 * @param $filename String containing a complete path the email file.
+	 * @param $filename string containing a complete path the email file.
 	 * @param $label_only Boolean determines if we should omit parsing html/text body and attachments.
 	 */
 	function parse( $filename, $label_only = false ) {
@@ -43,10 +43,10 @@ class MailDecoder {
 		if ( ! file_exists( $filename ) ) return;
 		$this->raw = file_get_contents( $filename );
 		$this->raw = str_replace( "\r\n", "\n", $this->raw );
-		$email = new String( $this->raw );
+		$email = new GString( $this->raw );
 
 		// Get the sender/destination address label, subject, etc.
-		$label = new String();
+		$label = new GString();
 		while( strpos( $email, 'Content-Type: ') !== false ) {
 			$label = $label->concat( $email->getLeftMost( 'Content-Type: ' ) );
 			$email = $email->delLeftMost( 'Content-Type: ');
@@ -54,7 +54,7 @@ class MailDecoder {
 				break;
 			}
 		}
-		$email = new String( 'Content-Type: ' . $email );
+		$email = new GString( 'Content-Type: ' . $email );
 		if ( $label->contains( 'Subject: ') ) {
 			$this->subject = $label->delLeftMost( 'Subject: ' )->getLeftMost( "\n" )->__toString();
 		}
