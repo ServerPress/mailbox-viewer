@@ -24,7 +24,7 @@ function mailbox_viewer_head() {
 
 include_once( $ds_runtime->htdocs_dir . '/header.php');
 include_once( 'class-mail-decoder.php' );
-include_once( 'string.php' );
+include_once( 'gstring.php' );
 
 $ch = curl_init();
 curl_setopt( $ch, CURLOPT_URL, 'https://raw.githubusercontent.com/ServerPress/mailbox-viewer/master/mailbox-viewer.php' );
@@ -41,7 +41,7 @@ if( $buffer ) {
 }
 ?>
 	<div class="container">
-	
+
 			<?php if( $buffer && version_compare( $current, $latest, '<' ) ) { ?>
 				<div class="outdated">
 					<h4>Notice!</h4>
