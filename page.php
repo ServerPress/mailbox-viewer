@@ -4,7 +4,14 @@
  */
 
 global $ds_runtime;
-if ( !$ds_runtime->is_localhost ) return;
+
+// Bail if not localhost
+if( ! $ds_runtime->is_localhost ) {
+	return;
+}
+
+define( 'DS3_MAILBOX_VIEWER_VER', '1.0.1' );
+
 $ds_runtime->add_action( 'ds_head', 'mailbox_viewer_head' );
 function mailbox_viewer_head() {
 	// Inject our css into the header stuff
@@ -18,8 +25,31 @@ function mailbox_viewer_head() {
 include_once( $ds_runtime->htdocs_dir . '/header.php');
 include_once( 'class-mail-decoder.php' );
 include_once( 'string.php' );
+
+$ch = curl_init();
+curl_setopt( $ch, CURLOPT_URL, 'https://raw.githubusercontent.com/ServerPress/mailbox-viewer/master/mailbox-viewer.php' );
+curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 2 );
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+$buffer = curl_exec( $ch );
+curl_close( $ch );
+
+if( $buffer ) {
+	$buffer = explode( "\n", $buffer );
+	$latest = str_replace( ' * Version: ', '', $buffer[5] );
+	$current = DS3_MAILBOX_VIEWER_VER;
+}
 ?>
 	<div class="container">
+	
+			<?php if( $buffer && version_compare( $current, $latest, '<' ) ) { ?>
+				<div class="outdated">
+					<h4>Notice!</h4>
+					<p>An update is available for DS3 Mail-box Viewer!&nbsp;&nbsp;&nbsp;<strong>Your Version:</strong> <code><?php echo $current; ?></code>&nbsp;&nbsp;&nbsp;<strong>Latest:</strong> <code><?php echo $latest; ?></code></p>
+					<a href="https://github.com/ServerPress/mailbox-viewer/archive/<?php echo $latest; ?>.zip">Download the latest version</a>
+				</div>
+			<?php } ?>
+
 		<div class="btn-group btn-group-sm" role="group">
 			<button type="button" class="btn btn-default" id="btn-refresh">Refresh</button>
 		</div>
