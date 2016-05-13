@@ -1,0 +1,16 @@
+{
+    "name": "serverpress/mailbox-viewer",
+    "description": "Provides quick developer offline viewing of mail delivery services.",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "authors":[
+        {
+            "name": "Stephen J. Carnam",
+            "email": "steve@serverpress.com",
+            "homepage": "https://github.com/serverpress"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
