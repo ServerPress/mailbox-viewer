@@ -611,7 +611,7 @@ final class GString {
 			for ($i = strlen($sSource); $i >= 0; $i = $i - 1) {
 				$f = strpos($sSource, $sSearch, $i);
 				if ($f !== FALSE) {
-					return new Gtring(substr($sSource,0, $f));
+					return new GString(substr($sSource,0, $f));
 					break;
 				}
 			}
