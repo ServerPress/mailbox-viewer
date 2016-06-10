@@ -5,7 +5,7 @@
 global $ds_runtime;
 if ( !$ds_runtime->is_localhost ) return;
 include_once( 'class-mail-decoder.php' );
-include_once( 'string.php' );
+include_once( 'gstring.php' );
 if ( PHP_OS === 'Darwin' ){
 	$mail_folder = '/Applications/XAMPP/xamppfiles/temp/mail';
 }else{
