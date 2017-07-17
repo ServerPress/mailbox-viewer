@@ -6,10 +6,10 @@ global $ds_runtime;
 if ( !$ds_runtime->is_localhost ) return;
 include_once( 'class-mail-decoder.php' );
 include_once( 'gstring.php' );
-if ( PHP_OS === 'Darwin' ){
-	$mail_folder = '/Applications/XAMPP/xamppfiles/temp/mail';
+if ( 'Darwin' === PHP_OS ){
+	$mail_folder = '/Applications/DesktopServer/runtime/temp/mail';
 }else{
-	$mail_folder = 'c:/xampplite/tmp/mail';
+	$mail_folder = 'c:/DesktopServer/runtime/temp/mail';
 }
 
 // Check if we're asked to delete all files.

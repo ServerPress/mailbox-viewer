@@ -73,10 +73,10 @@ if( $buffer ) {
 					/**
 					 * List all email by date
 					 */
-					if ( PHP_OS === 'Darwin' ){
-						$mail_folder = '/Applications/XAMPP/xamppfiles/temp/mail';
+					if ( 'Darwin' === PHP_OS ){
+						$mail_folder = '/Applications/DesktopServer/runtime/temp/mail';
 					}else{
-						$mail_folder = 'c:/xampplite/tmp/mail';
+						$mail_folder = 'c:/DesktopServer/runtime/temp/mail';
 					}
 					if ( file_exists( $mail_folder ) ) {
 						$dir = new DirectoryIterator( $mail_folder );
