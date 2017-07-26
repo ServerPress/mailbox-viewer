@@ -44,9 +44,13 @@ tbody tr:hover {
     background-repeat: no-repeat;
     background-position: 3px 2px;
     padding-left: 28px;
+	min-width: 175px;
 }
-td.mail-date, td.mail-to, td.mail-from  {
+td.mail-to, td.mail-from  {
     max-width: 150px;
+}
+td.mail-domain {
+	max-width: 250px;
 }
 td.mail-subject {
     width: 80%;
@@ -60,6 +64,9 @@ td {
 .tabbable, .tab-content {
     height: 100%;
     margin: 0px 0 -10px 0;
+}
+.hide {
+	display: none;
 }
 .nav-pills {
     border-bottom: 2px solid #e7e7e7;

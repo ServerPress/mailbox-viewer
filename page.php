@@ -10,7 +10,7 @@ if( ! $ds_runtime->is_localhost ) {
 	return;
 }
 
-define( 'DS3_MAILBOX_VIEWER_VER', '1.0.10' );
+define( 'DS3_MAILBOX_VIEWER_VER', '1.0.11' );
 
 $ds_runtime->add_action( 'ds_head', 'mailbox_viewer_head' );
 function mailbox_viewer_head() {
@@ -39,6 +39,7 @@ include_once( 'gstring.php' );
 				<table id="mail-list" class="table mailbox">
 					<thead>
 					<tr>
+						<th id="mail-domain">Domain:</th>
 						<th id="mail-date">Date:</th>
 						<th id="mail-to">To:</th>
 						<th id="mail-from">From:</th>
@@ -52,7 +53,7 @@ include_once( 'gstring.php' );
 					 */
 					if ( 'Darwin' === PHP_OS ){
 						$mail_folder = '/Applications/DesktopServer/runtime/temp/mail';
-					}else{
+					} else {
 						$mail_folder = 'c:/DesktopServer/runtime/temp/mail';
 					}
 					if ( file_exists( $mail_folder ) ) {
@@ -60,28 +61,23 @@ include_once( 'gstring.php' );
 						$files = array();
 						$n = 0;
 						foreach ($dir as $fileInfo) {
-							if ( $fileInfo->isDot() || $fileInfo->getFilename() === '.DS_Store' ) {
+							if ( $fileInfo->isDot() || '.DS_Store' === $fileInfo->getFilename() ) {
 								continue;
 							}
-							if ( substr($fileInfo->getRealPath(), -4 ) === '.eml' ) {
+							if ( '.eml' === substr($fileInfo->getRealPath(), -4 ) ) {
 								$files[ $fileInfo->getMTime() . ' - ' . sprintf( '%08d', $n ) ] = $fileInfo->getRealPath();
 							}
-							$n++;
+							++$n;
 						}
 						krsort( $files );
 						foreach ( $files as $date => $file ) {
-							$timestamp_pieces = explode( ' - ', $date );
-							$timestamp = $timestamp_pieces[0];
 							$md = new MailDecoder( $file, true );
 							echo '<tr class="envelope" filename="' . basename( $file ) . '">';
-							$d = date( "M d, Y g:i", $timestamp );
-							if ( date( 'a', $timestamp ) === 'am' ) {
-								$d .= 'a';
-							} else{
-								$d .= 'p';
-							}
-							echo '<td class="mail-date"> ' . $d . ' </td><td class="mail-to">' . $md->to . '</td>';
-							echo '<td class="mail-from"> ' . $md->from . '</td><td class="mail-subject">' . $md->subject . '</td>';
+							echo '<td class="mail-domain"> ', $md->domain, '</td>';
+							echo '<td class="mail-date"> ', '<span class="hide">', $md->timestamp, '</span>', $md->date, ' </td>';
+							echo '<td class="mail-to">', $md->to, '</td>';
+							echo '<td class="mail-from"> ', $md->from, '</td>';
+							echo '<td class="mail-subject">', $md->subject, '</td>';
 							echo '</tr>';
 						}
 					}
