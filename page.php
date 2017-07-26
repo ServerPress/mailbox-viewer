@@ -10,7 +10,7 @@ if( ! $ds_runtime->is_localhost ) {
 	return;
 }
 
-define( 'DS3_MAILBOX_VIEWER_VER', '1.0.5' );
+define( 'DS3_MAILBOX_VIEWER_VER', '1.0.9' );
 
 $ds_runtime->add_action( 'ds_head', 'mailbox_viewer_head' );
 function mailbox_viewer_head() {
