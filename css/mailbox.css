@@ -96,3 +96,6 @@ th.headerSortUp {
 th.headerSortDown {
     background-image: url(http://localhost/assets/asc.gif);
 }
+.navbar>.container .navbar-brand {
+	margin-top: -7px;
+}
