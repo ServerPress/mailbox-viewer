@@ -11,11 +11,12 @@
  */
 
 /**
- * Adds the domain name of the site sending an email to the mail headers for display in mail viewer
+ * Adds the localized date and domain name of the site sending an email to the mail headers for display in mail viewer
  * @param PHPMailer $phpmailer The mailer instance to add SMTP headers to
  */
 function ds_phpmailer_init( $phpmailer )
 {
+	$phpmailer->MessageDate = date( 'r', current_time( 'timestamp' ) );
 	$phpmailer->AddCustomHeader( 'X-WP-Domain: ' . parse_url( site_url(), PHP_URL_HOST ) );
 }
 add_action( 'phpmailer_init', 'ds_phpmailer_init');
