@@ -3,20 +3,18 @@
  * Provide the email data back to our ajax client for the given filename
  */
 global $ds_runtime;
-if ( !$ds_runtime->is_localhost ) return;
+if ( !$ds_runtime->is_localhost )
+	return;
+
 include_once( 'class-mail-decoder.php' );
 include_once( 'gstring.php' );
-if ( 'Darwin' === PHP_OS ){
-	$mail_folder = '/Applications/DesktopServer/runtime/temp/mail';
-}else{
-	$mail_folder = 'c:/DesktopServer/runtime/temp/mail';
-}
+$mail_folder = mailbox_viewer_temp_dir();
 
 // Check if we're asked to delete all files.
 if ( isset( $_GET['empty'] ) ) {
 	$files = glob( $mail_folder . '/*.eml' );
 	foreach( $files as $file ) {
-		if( is_file($file) ) {
+		if ( is_file($file) ) {
 			unlink( $file );
 		}
 	}
@@ -24,7 +22,7 @@ if ( isset( $_GET['empty'] ) ) {
 }
 $email = new MailDecoder( $mail_folder . '/' . $_GET['fn'] );
 $result = [];
-$result['html'] = rawurlencode($email->html);
-$result['text'] = rawurlencode( str_replace( "\n", "<br/>", str_replace( '>', '&lt;', str_replace( '<', '&gt;', $email->text) ) ) );
-$result['raw'] = rawurlencode( '<pre>' . str_replace( "\n", "<br/>", str_replace( '>', '&gt;', str_replace( '<', '&lt;', $email->raw) ) ) . '</pre>'  );
+$result['html'] = rawurlencode( $email->html );
+$result['text'] = rawurlencode( str_replace( "\n", '<br/>', str_replace( '>', '&lt;', str_replace( '<', '&gt;', $email->text ) ) ) );
+$result['raw'] = rawurlencode( '<pre>' . str_replace( "\n", '<br/>', str_replace( '>', '&gt;', str_replace( '<', '&lt;', $email->raw ) ) ) . '</pre>' );
 echo json_encode( $result );

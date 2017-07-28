@@ -51,11 +51,7 @@ include_once( 'gstring.php' );
 					/**
 					 * List all email by date
 					 */
-					if ( 'Darwin' === PHP_OS ){
-						$mail_folder = '/Applications/DesktopServer/runtime/temp/mail';
-					} else {
-						$mail_folder = 'c:/DesktopServer/runtime/temp/mail';
-					}
+					$mail_folder = mailbox_viewer_temp_dir();
 					if ( file_exists( $mail_folder ) ) {
 						$dir = new DirectoryIterator( $mail_folder );
 						$files = array();
@@ -72,7 +68,7 @@ include_once( 'gstring.php' );
 						krsort( $files );
 						foreach ( $files as $date => $file ) {
 							$md = new MailDecoder( $file, true );
-							echo '<tr class="envelope" filename="' . basename( $file ) . '">';
+							echo '<tr class="envelope" filename="', basename( $file ), '">';
 							echo '<td class="mail-domain"> ', $md->domain, '</td>';
 							echo '<td class="mail-date"> ', '<span class="hide">', $md->timestamp, '</span>', $md->date, ' </td>';
 							echo '<td class="mail-to">', $md->to, '</td>';
