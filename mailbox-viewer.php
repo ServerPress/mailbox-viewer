@@ -19,4 +19,6 @@ function ds_phpmailer_init( $phpmailer )
 	$phpmailer->MessageDate = date( 'r', current_time( 'timestamp' ) );
 	$phpmailer->AddCustomHeader( 'X-WP-Domain: ' . parse_url( site_url(), PHP_URL_HOST ) );
 }
-add_action( 'phpmailer_init', 'ds_phpmailer_init');
+// only initialize when running under DesktopServer and localhost #16
+if ( defined( 'DESKTOPSERVER' ) && ( isset( $_SERVER['REMOTE_ADDR'] ) && '127.0.0.1' === $_SERVER['REMOTE_ADDR'] ) )
+	add_action( 'phpmailer_init', 'ds_phpmailer_init');
