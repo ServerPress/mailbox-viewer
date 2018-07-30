@@ -61,10 +61,14 @@ class MailDecoder {
 		if ( $label->contains( 'Subject: ' ) ) {
 			$this->subject = $label->delLeftMost( 'Subject: ' )->getLeftMost( "\n" )->__toString();
 			// check for UTF-8 encoded subject lines
-			if ( '=?UTF-8?B?' === substr( $this->subject, 0, 10 ) ) {
+			if ( 0 === strcasecmp( '=?UTF-8?B?', substr( $this->subject, 0, 10 ) ) ) {
 				$subj = substr( $this->subject, 10 );
-				$subj = substr( $this->subject, 0, strlen( $subj ) - 2 );
+				$subj = substr( $subj, 0, strlen( $subj ) - 2 );
 				$this->subject = base64_decode( $subj );
+			} if ( 0 === strcasecmp( '=?UTF-8?Q?', substr( $this->subject, 0, 10 ) ) ) {
+				$subj = substr( $this->subject, 10 );
+				$subj = substr( $subj, 0, strlen( $subj ) - 2 );
+				$this->subject = quoted_printable_decode( $subj );
 			}
 		}
 		if ( $label->contains( 'Date: ' ) ) {
