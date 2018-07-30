@@ -106,3 +106,6 @@ th.headerSortDown {
 .navbar>.container .navbar-brand {
 	margin-top: -7px;
 }
+tr.envelope.selected {
+	background-color: #ccc;
+}

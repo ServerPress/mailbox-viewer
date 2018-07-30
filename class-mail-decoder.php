@@ -104,8 +104,12 @@ class MailDecoder {
 			if ( $encode->contains( 'iso-8859-1' ) ) {
 				$text = utf8_encode( $text );
 			}
+			if ( $encode->contains( 'UTF-8' ) ) {
+				$text = utf8_decode( $text );
+			}
 			$this->text = $text;
 		}
+
 
 		// Get the text/html email
 		if ( $email->contains( 'Content-Type: text/html;' ) ) {
@@ -114,6 +118,7 @@ class MailDecoder {
 			$html = quoted_printable_decode( $html );
 			$this->html = $html;
 		}
+		$this->html = utf8_encode( $this->html );
 
 
 		// Get all base64 encodes

@@ -42,7 +42,11 @@
 					return $table.closest('.list');
 				}
 			});
-			$('tr.envelope').click(function(){
+			$('tr.envelope').click(function(el){
+				// adjust class to show which email is selected
+				$('tr.envelope').removeClass('selected');
+				$(el.currentTarget).addClass('selected');
+
 				var fn = $(this).attr('filename');
 				$.get('http://localhost/ds-plugins/mailbox-viewer/detail.php?fn='+fn, function(r){
 					var m = jQuery.parseJSON(r);
@@ -54,6 +58,7 @@
 						$('#tab-html').hide();
 					}
 					if (m.text !== ''){
+						$('.detail.bottom_panel').scrollTop(0);
 						$('#text').html(unescape(m.text));
 						$('#tab-text').show();
 					}else{
